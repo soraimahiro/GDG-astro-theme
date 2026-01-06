@@ -1,6 +1,74 @@
 ---
 ---
-<div class="bg-gray-700 text-white">
-    <a href="/">Home</a>
-    <a href="/about/">About</a>
+<div class="navbar-main">
+    <a href="/" class="logo-group group">
+      <img src="/Logo.png" alt="Website Logo" class="w-10 h-10 rounded-lg" />
+      <span>Website Name</span>
+    </a>
+    <div class="nav-label group">
+        <span>Category</span>
+        <div class="dropdown-container">
+          <div class="dropdown-cards-wrapper">
+              <a href="/web">Web Design</a>
+              <a href="/logic">Logic Proof</a>
+              <a href="/literature">Literature</a>
+          </div>
+        </div> 
+    </div> 
+    <div class="nav-label group">
+        <span>Tags</span>
+        <div class="dropdown-container">
+          <div class="dropdown-cards-wrapper">
+              <a href="/web" class="tag"># Taiwan</a>
+              <a href="/logic" class="tag"># NTNU</a>
+              <a href="/literature" class="tag"># GDG</a>
+          </div>
+        </div> 
+    </div>
 </div>
+
+
+<style> 
+  @reference "../styles/global.css"; 
+
+  .navbar-main{
+    @apply flex items-center p-5 gap-10 rounded-xl;
+    @apply bg-gray-500 text-xl text-white;
+  }
+
+  .logo-group {
+    @apply flex items-center px-5 gap-5;
+    @apply font-black hover:text-blue-400 transition-colors;
+  }
+
+  .nav-label{
+    @apply flex relative py-2 cursor-pointer;
+    @apply font-black text-stone-300 hover:text-blue-400 transition-colors
+  }
+
+  .dropdown-container {
+    @apply absolute left-0 top-full z-[100];
+    @apply min-w-[160px] w-max pt-3; /*Invisible bridge to prevent hover flicker*/ /*!*/
+    @apply hidden bg-transparent;
+  }
+
+  .group:hover .dropdown-container { /*!*/
+    @apply block;
+  }
+
+  .dropdown-cards-wrapper {
+    @apply rounded-lg whitespace-nowrap overflow-hidden;
+    @apply bg-gray-500/50 backdrop-blur-sm ;
+  }
+
+  .dropdown-cards-wrapper a {
+    @apply block px-5 py-3;
+    @apply text-base font-bold text-stone-300;
+    @apply hover:bg-gray-300 hover:text-blue-600 transition-colors;
+  }
+
+  .tag {
+    @apply underline decoration-stone-200 underline-offset-4;
+    @apply hover:!bg-transparent hover:decoration-blue-600 transition-colors;
+  }
+</style>

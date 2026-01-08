@@ -1,0 +1,81 @@
+---
+interface Props {
+    prevTitle: string;
+    nextTitle: string;
+
+    prevPicture?: string; 
+    nextPicture?: string;
+
+    prevUrl: string;
+    nextUrl: string;
+}
+
+const { 
+    prevTitle, 
+    nextTitle,
+
+    prevPicture, 
+    nextPicture,
+
+    prevUrl, 
+    nextUrl 
+} = Astro.props;
+---
+
+<div class="border-2 border-[#423f3f] flex justify-center w-full h-20 rounded-[50px] bg-[#c7bcbc] text-white">
+    <!-- left area -->
+    <a href={prevUrl} class="rounded-l-[50px] w-full flex items-center justify-start cursor-pointer hover:bg-[#999292] duration-300 transition group px-6 gap-4">
+        
+        <!-- left arrow -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-12 stroke-[#423f3f] group-hover:stroke-white transition">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+        </svg>
+
+        <!-- prevPicture -->
+        {prevPicture && (
+            <div class="size-16 rounded-lg overflow-hidden border-2 border-[#423f3f]">
+                <img src={prevPicture} alt="Cover" class="shrink-0 size-full object-cover group-hover:scale-110 transition duration-500" />
+            </div>
+        )}
+        
+        <!-- prevText -->
+        <div class="flex flex-col items-start text-left">
+            <span class="text-[12px] text-[#423f3f] uppercase font-bold">
+                PREV
+            </span>
+            <span class="text-[24px] font-bold text-black leading-tight group-hover:text-white">
+                {prevTitle}
+            </span>
+        </div>
+    </a>
+
+    <!-- center line -->
+    <div class="w-0.5 bg-[#444444]"></div>
+
+    <!-- right area -->
+    <a href={nextUrl} class="rounded-r-[50px] w-full flex items-center justify-end cursor-pointer hover:bg-[#999292] duration-300 transition group px-6 gap-4">
+        
+        <!-- right arrow -->
+        <div class="flex flex-col items-end text-right">
+            <span class="text-[12px] text-[#423f3f] uppercase font-bold">
+                Next
+            </span>
+            <span class="text-[24px] font-bold text-black leading-tight group-hover:text-white">
+                {nextTitle}
+            </span>
+        </div>
+
+        <!-- nextPicture -->
+        {nextPicture && (
+            <div class="size-16 rounded-lg overflow-hidden border-2 border-[#423f3f]">
+                <img src={nextPicture} alt="Cover" class="shrink-0 size-full object-cover group-hover:scale-110 transition duration-500" />
+            </div>
+        )}
+
+        <!-- nextText -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-12 stroke-[#423f3f] group-hover:stroke-white transition">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+        </svg>
+        
+    </a>
+</div>

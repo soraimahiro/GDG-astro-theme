@@ -1,29 +1,33 @@
 ---
 ---
-<div class="navbar-main">
-    <a href="/" class="logo-group group">
-      <img src="/Logo.png" alt="Website Logo" class="w-10 h-10 rounded-lg" />
+<div class="navbar_main">
+    <a href="/" class="logo group">
+      <img src="/Logo.png" alt="Website Logo" class="w-10 h-10" />
       <span>Website Name</span>
     </a>
-    <div class="nav-label group">
+    <div class="label group">
         <span>Category</span>
-        <div class="dropdown-container">
-          <div class="dropdown-cards-wrapper">
+        <div class="dropdown_container">
+          <div class="cards_wrapper">
               <a href="/web">Web Design</a>
               <a href="/logic">Logic Proof</a>
               <a href="/literature">Literature</a>
           </div>
         </div> 
     </div> 
-    <div class="nav-label group">
+    <div class="label group">
         <span>Tags</span>
-        <div class="dropdown-container">
-          <div class="dropdown-cards-wrapper">
+        <div class="dropdown_container">
+          <div class="cards_wrapper">
               <a href="/web" class="tag"># Taiwan</a>
               <a href="/logic" class="tag"># NTNU</a>
               <a href="/literature" class="tag"># GDG</a>
           </div>
         </div> 
+    </div>
+    <div class="search">
+      <input type="text" placeholder="Search..." class="search_input" />
+      <img src="/Search.png" alt="Search Icon" class="w-5 h-5" />
     </div>
 </div>
 
@@ -31,44 +35,56 @@
 <style> 
   @reference "../styles/global.css"; 
 
-  .navbar-main{
+  .navbar_main {
     @apply flex items-center p-5 gap-10 rounded-xl;
-    @apply bg-gray-500 text-xl text-white;
+    @apply bg-gray-500 text-xl text-white transition-colors;
   }
 
-  .logo-group {
+  .logo {
     @apply flex items-center px-5 gap-5;
-    @apply font-black hover:text-blue-400 transition-colors;
+    @apply font-black hover:text-blue-400;
   }
 
-  .nav-label{
+  .label {
     @apply flex relative py-2 cursor-pointer;
-    @apply font-black text-stone-300 hover:text-blue-400 transition-colors
+    @apply font-black text-stone-300 hover:text-blue-400;
   }
 
-  .dropdown-container {
+  .dropdown_container {
     @apply absolute left-0 top-full z-[100];
     @apply min-w-[160px] w-max pt-3; /*Invisible bridge to prevent hover flicker*/ /*!*/
     @apply hidden bg-transparent;
   }
 
-  .group:hover .dropdown-container { /*!*/
+  .group:hover .dropdown_container {
     @apply block;
   }
 
-  .dropdown-cards-wrapper {
+  .cards_wrapper {
     @apply rounded-lg whitespace-nowrap overflow-hidden;
     @apply bg-gray-500/50 backdrop-blur-sm ;
   }
 
-  .dropdown-cards-wrapper a {
+  .cards_wrapper a {
     @apply block px-5 py-3;
     @apply text-base font-bold text-stone-300;
-    @apply hover:bg-gray-300 hover:text-blue-600 transition-colors;
+    @apply hover:bg-gray-300 hover:text-blue-600;
   }
 
   .tag {
     @apply underline decoration-stone-200 underline-offset-4;
-    @apply hover:!bg-transparent hover:decoration-blue-600 transition-colors;
+    @apply hover:!bg-transparent hover:decoration-blue-600;
   }
+
+  .search {
+    @apply ml-auto mr-5 flex items-center px-5 py-1;
+    @apply bg-gradient-to-r from-gray-800 to-gray-500;
+    @apply focus-within:ring-3 focus-within:ring-blue-400;
+  }
+
+  .search_input {
+    @apply bg-transparent border-none outline-none;
+    @apply text-base text-white placeholder-stone-300 w-80;
+  }
+
 </style>

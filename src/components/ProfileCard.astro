@@ -1,0 +1,31 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+    name: string;
+    avatar: string;
+}
+
+const { name, avatar } = Astro.props;
+---   
+<div class="p-4 flex w-full h-35 rounded-[30px] bg-[#4A4444] text-white">
+    <!-- Profile -->
+    <div class="w-fit flex-col items-center place-items-center">
+        <!-- Outline Circle -->
+        <div class="size-18 overflow-hidden p-1 rounded-full border-2 border-white">
+            <!-- Avatar -->
+            <Image src={ avatar } alt="An image of this person" width={64} height={64} class="size-full overflow-hidden bg-center bg-cover rounded-full"></Image>
+        </div>
+
+        <!-- Name -->
+        <div class="text-[24px] font-bold">{name}</div>
+    </div>
+
+    <!-- Line -->
+    <div class="mr-3 ml-3 w-1 bg-white"></div>
+
+    <!-- Description -->
+    <div class="text-[20px] flex-1 h-full p-2 flex items-center">
+        <slot />
+    </div>
+</div>

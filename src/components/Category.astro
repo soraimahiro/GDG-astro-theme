@@ -1,9 +1,8 @@
 ---
-const pages = ["index", "about"]
+const pages = ["example","side project", "school"]
 ---
 
-<ul>
-    {pages.map((page) => {
-        const Index = page === "index" ? "/" : `/${page}`;
-        return <li><a href = {Index}>{page}</a></li>})}
-</ul>
+
+{pages.map((page) => {
+    const Index = page === "home" ? "/" : `/${page}`;
+    return <option><a href = {Index}>{page}</a></option>})}

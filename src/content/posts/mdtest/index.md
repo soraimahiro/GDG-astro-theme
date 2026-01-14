@@ -6,6 +6,7 @@ author: 'Test Author'
 image:
     url: 'https://picsum.photos/800/600'
     alt: 'Markdown test page'
+category: "example"
 tags: ["markdown", "test", "styling", "demo"]
 ---
 

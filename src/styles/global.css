@@ -2,6 +2,6 @@
 
 @layer card {
     .card{
-        @apply p-10 bg-[#333333] rounded-[30px];
+        @apply p-10 bg-[#333333] rounded-xl;
     }
 }

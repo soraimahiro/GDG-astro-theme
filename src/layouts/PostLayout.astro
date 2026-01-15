@@ -8,8 +8,8 @@ import NextPrevButton from "@components/NextPrevButton.astro";
 ---
 
 <Layout>
-    <div class="flex p-10 gap-10 mg-auto justify-center text-white">
-        <div class="hidden lg:block lg:flex-1 card">
+    <div class="flex p-5 gap-5 mg-auto justify-center text-white items-start">
+        <div class="hidden lg:block lg:flex-1 card sticky top-5 max-h-[calc(100vh-2.5rem)] overflow-y-auto">
             <SideBarLeft/>
         </div>
 
@@ -30,7 +30,7 @@ import NextPrevButton from "@components/NextPrevButton.astro";
             />
         </div>
 
-        <div class="lg:flex-1 card">
+        <div class="lg:flex-1 card sticky top-5 max-h-[calc(100vh-2.5rem)] overflow-y-auto">
             <SideBarRight/>
         </div>
     </div>

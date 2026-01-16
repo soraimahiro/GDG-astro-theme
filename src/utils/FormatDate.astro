@@ -1,4 +1,6 @@
 ---
+import { formatDistance } from 'date-fns'
+
 interface Props {
 	date: Date;
 }
@@ -8,6 +10,6 @@ const { date } = Astro.props;
 
 <time datetime={date.toISOString()} class="text-[24px] font-medium tracking-wide text-white">
 	{
-        `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
+        formatDistance(date, new Date(), { addSuffix: true })
     }
 </time>

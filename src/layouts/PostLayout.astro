@@ -1,0 +1,37 @@
+---
+import Layout from "./Layout.astro";
+import SideBarLeft from "@components/SideBarLeft.astro";
+import SideBarRight from "@components/SideBarRight.astro";
+import ProfileCard from "@components/ProfileCard.astro";
+import Comment from "@components/Comment.astro";
+import NextPrevButton from "@components/NextPrevButton.astro";
+---
+
+<Layout>
+    <div class="flex p-10 gap-10 mg-auto justify-center text-white">
+        <div class="hidden lg:block lg:flex-1 card">
+            <SideBarLeft/>
+        </div>
+
+        <div class="lg:flex-3 card">
+            <div>
+                <slot />
+            </div>
+
+            <ProfileCard avatar="https://picsum.photos/64/64" name="Author">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor, tempora consectetur est sed voluptatem quod laboriosam repellat corrupti cupiditate natus sit officiis beatae, praesentium deleniti? Praesentium, provident! Aut, sed amet.
+            </ProfileCard>
+
+            <Comment/>
+            
+            <NextPrevButton 
+                nextTitle="next" nextPicture="https://picsum.photos/800/600" nextUrl="/"
+                prevTitle="previous" prevPicture="https://picsum.photos/800/600" prevUrl="/"
+            />
+        </div>
+
+        <div class="lg:flex-1 card">
+            <SideBarRight/>
+        </div>
+    </div>
+</Layout>

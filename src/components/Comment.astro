@@ -1,0 +1,20 @@
+---
+import { Icon } from "astro-icon/components";
+---
+<div class="p-5 flex gap-4 w-full h-auto rounded-[20px] bg-[#4A4444] text-white shadow-lg border border-white/5 items-start">
+    <!-- Avatar -->
+    <div class="shrink-0 pt-1">
+        <div class="size-12 rounded-full overflow-hidden bg-gray-600 border border-gray-500 grid place-items-center">
+            <Icon name="mingcute:chat-2-line" class="size-6">
+        </div>
+    </div>
+
+    <!-- Textarea -->
+    <div class="w-full relative group">
+        <textarea 
+            rows="3"
+            placeholder="Add your comment here..."    
+            class="w-full text-[18px] p-4 rounded-[15px] border-transparent bg-[#3a3636] text-white resize-none focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:bg-[#333] transition-all placeholder-gray-500"
+        ></textarea>
+    </div>
+</div>

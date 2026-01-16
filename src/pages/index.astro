@@ -1,7 +1,20 @@
 ---
-import Layout from "../layouts/Layout.astro"
+import Layout from "../layouts/Layout.astro";
+import ProfileCard from "@components/ProfileCard.astro";
+import Comment from "@components/Comment.astro";
+import NextPrevButton from "@components/NextPrevButton.astro";
 ---
 
 <Layout>
-	<h1>Welcome!</h1>
+	<div class="w-full bg-gray-800">
+		<h1>Welcome!</h1>
+		<ProfileCard avatar="/favicon.svg" name="GDG">
+			Hello we are GDG
+		</ProfileCard>
+		<Comment/>
+		<NextPrevButton 
+			nextTitle="next" nextUrl="/"
+			prevTitle="previous" prevUrl="/"
+		/>
+	</div>
 </Layout>

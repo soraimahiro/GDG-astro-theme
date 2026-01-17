@@ -16,6 +16,7 @@ const posts = defineCollection({
             url: z.string(),
             alt: z.string()
         }),
+        category: z.string(),
         tags: z.array(z.string())
     })
 });

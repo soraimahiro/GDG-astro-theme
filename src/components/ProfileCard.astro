@@ -25,7 +25,9 @@ const { name, avatar } = Astro.props;
     <div class="mr-3 ml-3 w-1 bg-white"></div>
 
     <!-- Description -->
-    <div class="text-[20px] flex-1 h-full p-2 flex items-center">
-        <slot />
+    <div class="text-[20px] p-2 flex items-center overflow-y-auto">
+        <div class="max-h-full w-full">
+            <slot />
+        </div>
     </div>
 </div>

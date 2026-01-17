@@ -5,6 +5,8 @@ import SideBarRight from "@components/SideBarRight.astro";
 import ProfileCard from "@components/ProfileCard.astro";
 import Comment from "@components/Comment.astro";
 import NextPrevButton from "@components/NextPrevButton.astro";
+
+const { headings } = Astro.props;
 ---
 
 <Layout>
@@ -31,7 +33,7 @@ import NextPrevButton from "@components/NextPrevButton.astro";
         </div>
 
         <div class="lg:flex-1 card sticky top-5 max-h-[calc(100vh-2.5rem)] overflow-y-auto">
-            <SideBarRight/>
+            <SideBarRight headings={headings} />
         </div>
     </div>
 </Layout>

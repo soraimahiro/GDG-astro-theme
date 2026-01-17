@@ -1,0 +1,22 @@
+---
+import FormatDate from "../utils/FormatDate.astro";
+import Tag from "./widgets/Tag.astro";
+
+interface Props {
+    title: string;
+    pubDate: Date;
+    tags: string[];
+}
+
+const { title, pubDate, tags } = Astro.props;
+---
+
+<div class="text-[64px] text-white">
+    {title}
+</div>
+
+<FormatDate date={pubDate} />
+
+<div class="flex gap-2 mt-2">
+    {tags.map((tag) => (<Tag>{tag}</Tag>))}
+</div>

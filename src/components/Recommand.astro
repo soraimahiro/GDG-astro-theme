@@ -1,0 +1,18 @@
+---
+import type { PostData } from './types/PostData';
+import PostCard from './widgets/PostCard.astro';
+
+interface Props {
+    posts : PostData[]
+}
+
+const { 
+    posts
+} = Astro.props;
+---
+<div class="grid grid-cols-3 gap-3 ">
+{
+    posts.map((post) => (
+        <PostCard post={post}/>
+    ))
+}

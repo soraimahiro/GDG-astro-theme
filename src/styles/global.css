@@ -5,3 +5,6 @@
         @apply p-10 bg-[#333333] rounded-[30px];
     }
 }
+body {
+  @apply bg-neutral-800 text-white;
+}

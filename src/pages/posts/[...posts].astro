@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import PostLayout from "src/layouts/PostLayout.astro";
+import PostHeader from "@components/PostHeader.astro";
 
 export async function getStaticPaths() {
     const posts = await getCollection("posts");
@@ -16,5 +17,6 @@ const { Content, headings } = await render(post);
 ---
 
 <PostLayout headings={headings}>
+    <PostHeader title={post.data.title} pubDate={post.data.pubDate} tags={post.data.tags}/>
     <Content/>
 </PostLayout>

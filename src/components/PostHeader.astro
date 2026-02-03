@@ -10,13 +10,13 @@ interface Props {
 
 const { title, pubDate, tags } = Astro.props;
 ---
-
-<div class="text-[64px] text-white">
+<div class="text-4xl text-white mb-2">
     {title}
 </div>
+<div class="text-lg font-normal tracking-wide text-gray-300">
+    <FormatDate date={pubDate} />
+</div>
 
-<FormatDate date={pubDate} />
-
-<div class="flex gap-2 mt-2">
+<div class="flex gap-2 pb-2 mt-2 mb-5 border-b border-b-gray-500">
     {tags.map((tag) => (<Tag>{tag}</Tag>))}
 </div>

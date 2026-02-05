@@ -1,10 +1,110 @@
 ---
+import type { MarkdownHeading } from "astro";
+
+interface Props {
+    headings: MarkdownHeading[];
+}
+
+const { headings } = Astro.props;
+const toc = headings.filter((h) => h.depth <= 3);
 ---
-<div>
-    <ul>
-        <li>aaa</li>
-        <li>bbb</li>
-        <li>ccc</li>
-        <li>ddd</li>
+
+<nav class="sticky top-24 max-h-[80vh] overflow-y-auto">
+    <ul class="space-y-2 border-l-2 border-gray-200 dark:border-gray-800 text-sm">
+        {
+            toc.map((heading) => (
+                <li>
+                    <a href={`#${heading.slug}`}
+                        class:list={[
+                            "toc-link block py-1 transition-all hover:text-blue-600 dark:hover:text-blue-400",
+                            heading.depth === 2 ? "pl-4" : "pl-8 text-xs",
+                            "text-gray-500 dark:text-gray-400",
+                            
+                            // Active state classes (will be toggled by JavaScript)
+                            "[&.active]:text-blue-600 [&.active]:font-bold [&.active]:border-l-2 [&.active]:border-blue-600 [&.active]:-ml-0.5 [&.active]:bg-blue-50/50",
+                            "dark:[&.active]:text-blue-400 dark:[&.active]:border-blue-400 dark:[&.active]:bg-blue-900/20",
+                    ]}>
+                        {heading.text}
+                    </a>
+                </li>
+            ))
+        }
     </ul>
-</div>
+</nav>
+
+<script>
+    function initTOC() {
+        const observerOptions = {
+            root: null,
+            rootMargin: "-100px 0px -66% 0px",
+            threshold: [0, 0.25, 0.5, 0.75, 1.0],
+        };
+
+        let currentActiveId: string | null = null;
+
+        const observer = new IntersectionObserver((entries) => {
+            const visibleEntries = entries.filter(
+                (entry) => entry.isIntersecting
+            );
+
+            if (visibleEntries.length > 0) {
+                const targetEntry = visibleEntries.reduce((prev, curr) => {
+                    return prev.boundingClientRect.top <
+                        curr.boundingClientRect.top
+                        ? prev
+                        : curr;
+                });
+
+                const id = targetEntry.target.getAttribute("id");
+
+                if (id && id !== currentActiveId) {
+                    currentActiveId = id;
+
+                    document.querySelectorAll(".toc-link").forEach((link) => {
+                        link.classList.remove("active");
+                    });
+
+                    const activeLink = document.querySelector(
+                        `.toc-link[href="#${id}"]`
+                    );
+
+                    if (activeLink) {
+                        activeLink.classList.add("active");
+                        activeLink.scrollIntoView({
+                            block: "nearest",
+                            behavior: "smooth",
+                        });
+                    }
+                }
+            }
+        }, observerOptions);
+
+        const headings = document.querySelectorAll("h1[id], h2[id], h3[id]");
+        headings.forEach((header) => {
+            observer.observe(header);
+        });
+
+        const setInitialActive = () => {
+            const firstVisibleHeading = Array.from(headings).find((heading) => {
+                const rect = heading.getBoundingClientRect();
+                return rect.top >= 0 && rect.top <= window.innerHeight;
+            });
+
+            if (firstVisibleHeading) {
+                const id = firstVisibleHeading.getAttribute("id");
+                const firstLink = document.querySelector(
+                    `.toc-link[href="#${id}"]`
+                );
+                if (firstLink) {
+                    firstLink.classList.add("active");
+                    currentActiveId = id;
+                }
+            }
+        };
+
+        setInitialActive();
+    }
+
+    document.addEventListener("DOMContentLoaded", initTOC);
+    document.addEventListener("astro:page-load", initTOC);
+</script>

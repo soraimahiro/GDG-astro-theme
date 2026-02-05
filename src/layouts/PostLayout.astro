@@ -5,18 +5,18 @@ import SideBarRight from "@components/SideBarRight.astro";
 import ProfileCard from "@components/ProfileCard.astro";
 import Comment from "@components/Comment.astro";
 import NextPrevButton from "@components/NextPrevButton.astro";
+
+const { headings } = Astro.props;
 ---
 
 <Layout>
-    <div class="flex p-10 gap-10 mg-auto justify-center text-white">
-        <div class="hidden lg:block lg:flex-1 card">
+    <div class="flex max-w-[1440px] py-5 gap-5 mx-auto justify-center text-white items-start">
+        <div class="hidden lg:block lg:flex-1 card sticky top-5 max-h-[calc(100vh-2.5rem)] overflow-y-auto">
             <SideBarLeft/>
         </div>
 
-        <div class="lg:flex-3 card">
-            <div>
-                <slot />
-            </div>
+        <div class="w-full lg:flex-4 card">
+            <slot />
 
             <ProfileCard avatar="https://picsum.photos/64/64" name="Author">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor, tempora consectetur est sed voluptatem quod laboriosam repellat corrupti cupiditate natus sit officiis beatae, praesentium deleniti? Praesentium, provident! Aut, sed amet.
@@ -30,8 +30,8 @@ import NextPrevButton from "@components/NextPrevButton.astro";
             />
         </div>
 
-        <div class="lg:flex-1 card">
-            <SideBarRight/>
+        <div class="hidden lg:block lg:flex-1 card sticky top-5 max-h-[calc(100vh-2.5rem)] overflow-y-auto">
+            <SideBarRight headings={headings} />
         </div>
     </div>
 </Layout>

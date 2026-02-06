@@ -1,4 +1,55 @@
 ---
-
+const currentYear = new Date().getFullYear();
+const footerSections = [
+  {
+    title: "社群平台",
+    links: [
+      { name: "Discord", url: "https://discord.gg/NHRvEqxR" },
+      { name: "GitHub", url: "https://github.com/soraimahiro" },
+    ],
+  },
+  {
+    title: "相關連結",
+    links: [
+      { name: "GDG 全球官網", url: "https://gdg.community.dev/" },
+      { name: "Astro 官方文件", url: "https://docs.astro.build/" },
+    ],
+  },
+];
 ---
-<p>&copy; 2025 GDG NTNU. All rights reserved.</p>
+
+<footer class="border-t border-gray-700 bg-[#222222]">
+  <div class="max-w-7xl mx-auto px-6 py-12">
+    <div class="flex flex-wrap justify-center gap-x-16 gap-y-10 mb-10">
+      {
+        footerSections.map((section) => (
+          <div class="min-w-[120px]">
+            <h3 class="text-xs font-semibold text-white uppercase tracking-wider mb-4 text-center md:text-left">
+              {section.title}
+            </h3>
+            <ul class="space-y-3 text-center md:text-left">
+              {section.links.map((link) => (
+                <li>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="border-t border-gray-700 pt-8 text-center">
+      <p class="text-sm text-gray-400">
+        &copy; {currentYear} GDG NTNU. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>

@@ -1,20 +1,40 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import ProfileCard from "@components/ProfileCard.astro";
-import Comment from "@components/Comment.astro";
-import NextPrevButton from "@components/NextPrevButton.astro";
+import PostCard from "@components/widgets/PostCard.astro";
+
+const allPosts = await getCollection("posts");
+const latestPosts = allPosts
+	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+	.slice(0, 9)
+	.map((post) => ({
+		title: post.data.title,
+		date: post.data.pubDate.toISOString().split("T")[0],
+		image: post.data.image?.url,
+		url: `/posts/${post.id}`
+	}));
 ---
 
-<Layout>
-	<div class="w-full bg-gray-800">
-		<h1>Welcome!</h1>
-		<ProfileCard avatar="/favicon.svg" name="GDG">
-			Hello we are GDG
+<Layout pageTitle="Home">
+	<section class="panel">
+		<ProfileCard avatar="/Logo.png" name="Lion">
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 		</ProfileCard>
-		<Comment/>
-		<NextPrevButton 
-			nextTitle="next" nextUrl="/"
-			prevTitle="previous" prevUrl="/"
-		/>
-	</div>
+
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+			{latestPosts.map((post) => (
+				<PostCard post={post} />
+			))}
+		</div>
+
+		<div class="flex justify-center mb-8">
+			<a
+				href="/allPosts"
+				class="inline-flex items-center justify-center rounded-lg bg-[var(--color-accent)] text-[var(--color-bg)] px-6 py-3 font-semibold hover:opacity-90 transition"
+			>
+				更多文章
+			</a>
+		</div>
+	</section>
 </Layout>

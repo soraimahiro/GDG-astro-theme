@@ -1,0 +1,39 @@
+---
+interface TagItem {
+  key: string;
+  name: string;
+  count: number;
+}
+
+interface Props {
+  tags: TagItem[];
+}
+
+const { tags } = Astro.props;
+---
+
+<aside class="panel flex flex-col gap-4">
+  <div>
+    <h2 class="text-xl font-bold mb-3">標籤</h2>
+    <div class="flex flex-wrap gap-2" data-tag-list>
+      <button
+        type="button"
+        class="tag-filter-btn rounded-full border border-[color:rgba(207,219,213,0.6)] px-3 py-1 text-sm text-white bg-white/10 transition"
+        data-tag="__all"
+        aria-pressed="true"
+      >
+        全部
+      </button>
+      {tags.map((tag) => (
+        <button
+          type="button"
+          class="tag-filter-btn rounded-full border border-[color:rgba(207,219,213,0.4)] px-3 py-1 text-sm text-white bg-white/10 hover:bg-white/20 transition"
+          data-tag={tag.key}
+          aria-pressed="false"
+        >
+          {tag.name} ({tag.count})
+        </button>
+      ))}
+    </div>
+  </div>
+</aside>

@@ -10,18 +10,30 @@ const {
 } = Astro.props;
 
 const { title, image, url, date } = post;
+const isImageUrl = typeof image === 'string';
 ---
 <a href={url} class={`group relative block h-53 overflow-hidden rounded-[30px]`}>
-    {image && <Image 
-        src={ image } 
-        alt={ title } 
-        class="group-hover:scale-110 group-hover:opacity-50 object-cover absolute inset-0 w-full h-full transition duration-700"/>
-    }
+    {image && (
+        isImageUrl ? (
+            <img
+                src={image}
+                alt={title}
+                loading="lazy"
+                decoding="async"
+                class="group-hover:scale-110 group-hover:opacity-50 object-cover absolute inset-0 w-full h-full transition duration-700"
+            />
+        ) : (
+            <Image 
+                src={image}
+                alt={title}
+                class="group-hover:scale-110 group-hover:opacity-50 object-cover absolute inset-0 w-full h-full transition duration-700"/>
+        )
+    )}
     
-    <div class="from-[#444444] to-[#7e7d7d44] bg-linear-to-t absolute inset-0"></div>
+    <div class="from-[var(--color-surface)] to-transparent bg-linear-to-t absolute inset-0"></div>
 
     <div class="absolute bottom-0 p-6">
-        <div class="mb-1 text-sm text-[#e4e4e4]">{date}</div> 
+        <div class="mb-1 text-sm text-[var(--color-muted)]">{date}</div> 
         <div class="text-xl font-bold text-white">
             {title}
         </div>

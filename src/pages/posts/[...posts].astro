@@ -18,5 +18,7 @@ const { Content, headings } = await render(post);
 
 <PostLayout headings={headings}>
     <PostHeader title={post.data.title} pubDate={post.data.pubDate} tags={post.data.tags}/>
-    <Content/>
+    <div class="markdown">
+        <Content/>
+    </div>
 </PostLayout>

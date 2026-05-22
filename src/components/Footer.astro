@@ -2,23 +2,22 @@
 const currentYear = new Date().getFullYear();
 const footerSections = [
   {
-    title: "社群平台",
+    title: "Links",
     links: [
-      { name: "Discord", url: "https://discord.gg/NHRvEqxR" },
-      { name: "GitHub", url: "https://github.com/soraimahiro" },
+      { name: "Github", url: "https://github.com/soraimahiro/GDG-astro-theme" }
     ],
   },
   {
-    title: "相關連結",
+    title: "Reference",
     links: [
-      { name: "GDG 全球官網", url: "https://gdg.community.dev/" },
-      { name: "Astro 官方文件", url: "https://docs.astro.build/" },
+      { name: "Astro", url: "https://astro.build" },
+      { name: "Tailwind CSS", url: "https://tailwindcss.com" }
     ],
   },
 ];
 ---
 
-<footer class="border-t border-gray-700 bg-[#222222]">
+<footer class="w-full border-t border-[var(--color-surface)] bg-[var(--color-bg)]">
   <div class="max-w-7xl mx-auto px-6 py-12">
     <div class="flex flex-wrap justify-center gap-x-16 gap-y-10 mb-10">
       {
@@ -34,7 +33,7 @@ const footerSections = [
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors"
+                    class="text-sm text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors"
                   >
                     {link.name}
                   </a>
@@ -46,8 +45,8 @@ const footerSections = [
       }
     </div>
 
-    <div class="border-t border-gray-700 pt-8 text-center">
-      <p class="text-sm text-gray-400">
+    <div class="border-t border-[var(--color-surface)] pt-8 text-center">
+      <p class="text-sm text-[var(--color-muted)]">
         &copy; {currentYear} GDG NTNU. All rights reserved.
       </p>
     </div>

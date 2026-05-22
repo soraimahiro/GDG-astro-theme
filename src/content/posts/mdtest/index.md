@@ -9,8 +9,6 @@ image:
 tags: ["markdown", "test", "styling", "demo"]
 ---
 
-# Heading Level 1 (H1)
-
 This is a regular paragraph of text. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Testing mixed content with 中文字符 for bilingual support.
 

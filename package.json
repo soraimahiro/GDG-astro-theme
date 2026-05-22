@@ -12,9 +12,9 @@
     "@iconify-json/mingcute": "^1.2.6",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.16.6",
-    "date-fns": "^4.1.0",
     "astro-icon": "^1.1.5",
+    "date-fns": "^4.1.0",
     "tailwindcss": "^4.1.18"
   },
-  "packageManager": "pnpm@10.21.0"
+  "packageManager": "pnpm@11.2.2"
 }

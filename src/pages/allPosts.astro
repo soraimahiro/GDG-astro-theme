@@ -1,7 +1,105 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import PostCard from "@components/widgets/PostCard.astro";
+import AllPostsSideBar from "@components/AllPostsSideBar.astro";
+
+const allPosts = await getCollection("posts");
+const posts = allPosts
+	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+	.map((post) => ({
+		title: post.data.title,
+		date: post.data.pubDate.toISOString().split("T")[0],
+		image: post.data.image?.url,
+		url: `/posts/${post.id}`,
+		tags: post.data.tags.map((tag) => tag.toLowerCase())
+	}));
+
+const tagMap = new Map<string, { key: string; name: string; count: number }>();
+allPosts.forEach((post) => {
+	post.data.tags.forEach((tag) => {
+		const key = tag.toLowerCase();
+		const entry = tagMap.get(key) ?? { key, name: tag, count: 0 };
+		entry.count += 1;
+		tagMap.set(key, entry);
+	});
+});
+
+const tags = Array.from(tagMap.values()).sort((a, b) =>
+	a.name.localeCompare(b.name)
+);
 ---
 
-<Layout>
+<Layout pageTitle="All Posts">
+	<section class="py-6">
+		<div class="flex flex-col lg:flex-row gap-6">
+			<div class="lg:w-64 shrink-0">
+				<AllPostsSideBar tags={tags} />
+			</div>
 
+			<div class="panel flex-1">
+				{posts.length === 0 ? (
+					<div class="text-[var(--color-muted)]">No posts yet.</div>
+				) : (
+					<div id="post-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+						{posts.map((post) => (
+							<div class="post-item" data-post-tags={post.tags.join(",") }>
+								<PostCard post={post} />
+							</div>
+						))}
+					</div>
+				)}
+			</div>
+		</div>
+	</section>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			const buttons = Array.from(document.querySelectorAll(".tag-filter-btn")) as HTMLButtonElement[];
+			const allButton = document.querySelector(".tag-filter-btn[data-tag='__all']") as HTMLButtonElement | null;
+			const postItems = Array.from(document.querySelectorAll(".post-item")) as HTMLElement[];
+
+			const setActive = (button: HTMLButtonElement | null, active: boolean) => {
+				if (!button) return;
+				button.classList.toggle("is-active", active);
+				button.setAttribute("aria-pressed", active ? "true" : "false");
+			};
+
+			const getActiveTags = (): string[] =>
+				buttons
+					.filter((button) => button.dataset.tag !== "__all" && button.classList.contains("is-active"))
+					.map((button) => button.dataset.tag)
+					.filter((tag): tag is string => Boolean(tag));
+
+			const applyFilter = () => {
+				const activeTags = getActiveTags();
+				const showAll = activeTags.length === 0;
+
+				postItems.forEach((item) => {
+					const itemTags = (item.dataset.postTags || "").split(",").filter(Boolean);
+					const matches = showAll || activeTags.some((tag) => itemTags.includes(tag));
+					item.classList.toggle("hidden", !matches);
+				});
+
+				setActive(allButton, showAll);
+			};
+
+			buttons.forEach((button) => {
+				button.addEventListener("click", () => {
+					const tag = button.dataset.tag;
+					if (tag === "__all") {
+						buttons.forEach((btn) => setActive(btn, btn.dataset.tag === "__all"));
+						applyFilter();
+						return;
+					}
+
+					setActive(button, !button.classList.contains("is-active"));
+					setActive(allButton, false);
+					applyFilter();
+				});
+			});
+
+			applyFilter();
+		});
+	</script>
 </Layout>

@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
 
 interface Props {
     prevPost?: any;
@@ -26,7 +27,11 @@ const showNavigation = hasPrev || hasNext;
                     <!-- prevPicture -->
                     {prevPost.data.image?.url && (
                         <div class="size-16 rounded-lg overflow-hidden border-2 border-(--color-surface) shrink-0">
-                            <img src={prevPost.data.image.url} alt={prevPost.data.image.alt || "Cover"} class="shrink-0 size-full object-cover group-hover:scale-110 transition duration-500" />
+                            {typeof prevPost.data.image.url === 'string' ? (
+                                <img src={prevPost.data.image.url} alt={prevPost.data.image.alt || "Cover"} class="shrink-0 size-full object-cover group-hover:scale-110 transition duration-500" />
+                            ) : (
+                                <Image src={prevPost.data.image.url} alt={prevPost.data.image.alt || "Cover"} class="shrink-0 size-full object-cover group-hover:scale-110 transition duration-500" />
+                            )}
                         </div>
                     )}
                     
@@ -63,7 +68,11 @@ const showNavigation = hasPrev || hasNext;
                     <!-- nextPicture -->
                     {nextPost.data.image?.url && (
                         <div class="size-16 rounded-lg overflow-hidden border-2 border-(--color-surface) shrink-0">
-                            <img src={nextPost.data.image.url} alt={nextPost.data.image.alt || "Cover"} class="shrink-0 size-full object-cover group-hover:scale-110 transition duration-500" />
+                            {typeof nextPost.data.image.url === 'string' ? (
+                                <img src={nextPost.data.image.url} alt={nextPost.data.image.alt || "Cover"} class="shrink-0 size-full object-cover group-hover:scale-110 transition duration-500" />
+                            ) : (
+                                <Image src={nextPost.data.image.url} alt={nextPost.data.image.alt || "Cover"} class="shrink-0 size-full object-cover group-hover:scale-110 transition duration-500" />
+                            )}
                         </div>
                     )}
 

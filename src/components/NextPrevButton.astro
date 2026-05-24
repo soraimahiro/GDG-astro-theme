@@ -1,79 +1,88 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
 
 interface Props {
-    prevTitle: string;
-    nextTitle: string;
-
-    prevPicture?: string; 
-    nextPicture?: string;
-
-    prevUrl: string;
-    nextUrl: string;
+    prevPost?: any;
+    nextPost?: any;
 }
 
-const { 
-    prevTitle, 
-    nextTitle,
+const { prevPost, nextPost } = Astro.props;
 
-    prevPicture, 
-    nextPicture,
-
-    prevUrl, 
-    nextUrl 
-} = Astro.props;
+const hasPrev = !!prevPost;
+const hasNext = !!nextPost;
+const showNavigation = hasPrev || hasNext;
 ---
 
-<div class="border-2 border-gray-700 flex justify-center w-full h-20 rounded-[50px] bg-gray-800 text-white">
-    <!-- left area -->
-    <a href={prevUrl} class="rounded-l-[50px] w-full flex items-center justify-start cursor-pointer hover:bg-gray-300 duration-300 transition group px-6 gap-4">
-        
-        <!-- left arrow -->
-        <Icon name="mingcute:left-line" class="size-12 filter group-hover:drop-shadow-[0_0_2px_rgba(0,0,0,1)] group-hover:text-black transition"/>
-
-        <!-- prevPicture -->
-        {prevPicture && (
-            <div class="size-16 rounded-lg overflow-hidden border-2 border-gray-700">
-                <img src={prevPicture} alt="Cover" class="shrink-0 size-full object-cover group-hover:scale-110 transition duration-500" />
+{showNavigation && (
+    <div class="grid grid-cols-2 gap-3 w-full">
+        {hasPrev ? (
+            <div class="rounded-xl bg-(--color-surface) p-3 flex">
+                <!-- left area -->
+                <a href={`/posts/${prevPost.id}`} class="rounded-l-xl w-full flex items-center justify-start cursor-pointer px-6 gap-4 group">
+                    
+                    <!-- left arrow -->
+                    <Icon name="mingcute:left-line" class="size-12 filter group-hover:text-(--color-accent) transition shrink-0"/>
+                    
+                    <!-- prevPicture -->
+                    {prevPost.data.image?.url && (
+                        <div class="size-16 rounded-lg overflow-hidden border-2 border-(--color-surface) shrink-0">
+                            {typeof prevPost.data.image.url === 'string' ? (
+                                <img src={prevPost.data.image.url} alt={prevPost.data.image.alt || "Cover"} class="shrink-0 size-full object-cover group-hover:scale-110 transition duration-500" />
+                            ) : (
+                                <Image src={prevPost.data.image.url} alt={prevPost.data.image.alt || "Cover"} class="shrink-0 size-full object-cover group-hover:scale-110 transition duration-500" />
+                            )}
+                        </div>
+                    )}
+                    
+                    <!-- prevText -->
+                    <div class="flex flex-col items-start text-left min-w-0 flex-1">
+                        <span class="text-sm text-(--color-muted) uppercase font-bold">
+                            PREV
+                        </span>
+                        <span class="text-lg font-bold text-white leading-tight group-hover:text-(--color-accent) transition truncate w-full">
+                            {prevPost.data.title}
+                        </span>
+                    </div>
+                </a>
             </div>
-        )}
-        
-        <!-- prevText -->
-        <div class="flex flex-col items-start text-left">
-            <span class="text-[12px] text-[#828282] uppercase font-bold">
-                PREV
-            </span>
-            <span class="text-[24px] font-bold text-white leading-tight group-hover:text-black transition">
-                {prevTitle}
-            </span>
-        </div>
-    </a>
-
-    <!-- center line -->
-    <div class="w-0.5 bg-[#444444]"></div>
-
-    <!-- right area -->
-    <a href={nextUrl} class="rounded-r-[50px] w-full flex items-center justify-end cursor-pointer hover:bg-gray-300 duration-300 transition group px-6 gap-4">
-        
-        <!-- right arrow -->
-        <div class="flex flex-col items-end text-right">
-            <span class="text-[12px] text-[#828282] uppercase font-bold">
-                Next
-            </span>
-            <span class="text-[24px] font-bold text-white leading-tight group-hover:text-black transition">
-                {nextTitle}
-            </span>
-        </div>
-
-        <!-- nextPicture -->
-        {nextPicture && (
-            <div class="size-16 rounded-lg overflow-hidden border-2 border-[#423f3f]">
-                <img src={nextPicture} alt="Cover" class="shrink-0 size-full object-cover group-hover:scale-110 transition duration-500" />
-            </div>
+        ) : (
+            <div></div>
         )}
 
-        <!-- nextText -->
-        <Icon name="mingcute:right-line" class="size-12 filter group-hover:drop-shadow-[0_0_2px_rgba(0,0,0,1)] group-hover:text-black transition"/>
-        
-    </a>
-</div>
+        {hasNext ? (
+            <div class="rounded-xl bg-(--color-surface) p-3 flex">
+                <!-- right area -->
+                <a href={`/posts/${nextPost.id}`} class="rounded-r-xl w-full flex items-center justify-end cursor-pointer group px-6 gap-4">
+                    
+                    <!-- nextText -->
+                    <div class="flex flex-col items-end text-right min-w-0 flex-1">
+                        <span class="text-sm text-(--color-muted) uppercase font-bold">
+                            Next
+                        </span>
+                        <span class="text-lg font-bold text-white leading-tight group-hover:text-(--color-accent) transition truncate w-full">
+                            {nextPost.data.title}
+                        </span>
+                    </div>
+                    
+                    <!-- nextPicture -->
+                    {nextPost.data.image?.url && (
+                        <div class="size-16 rounded-lg overflow-hidden border-2 border-(--color-surface) shrink-0">
+                            {typeof nextPost.data.image.url === 'string' ? (
+                                <img src={nextPost.data.image.url} alt={nextPost.data.image.alt || "Cover"} class="shrink-0 size-full object-cover group-hover:scale-110 transition duration-500" />
+                            ) : (
+                                <Image src={nextPost.data.image.url} alt={nextPost.data.image.alt || "Cover"} class="shrink-0 size-full object-cover group-hover:scale-110 transition duration-500" />
+                            )}
+                        </div>
+                    )}
+
+                    <!-- right arrow -->
+                    <Icon name="mingcute:right-line" class="size-12 filter group-hover:text-(--color-accent) transition shrink-0"/>
+                    
+                </a>
+            </div>
+        ) : (
+            <div></div>
+        )}
+    </div>
+)}

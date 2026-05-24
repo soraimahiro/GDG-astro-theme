@@ -9,21 +9,16 @@ const { headings } = Astro.props;
 const toc = headings.filter((h) => h.depth <= 3);
 ---
 
-<nav class="sticky top-24 max-h-[80vh] overflow-y-auto">
-    <ul class="space-y-2 border-l-2 border-gray-200 dark:border-gray-800 text-sm">
+<nav class="w-full flex-1 min-h-0 overflow-y-scroll pr-1 custom-scrollbar" data-toc-container>
+    <ul class="space-y-2 border-l-2 border-(--color-muted) text-sm ">
         {
             toc.map((heading) => (
                 <li>
                     <a href={`#${heading.slug}`}
                         class:list={[
-                            "toc-link block py-1 transition-all hover:text-blue-600 dark:hover:text-blue-400",
+                            "toc-link block py-1 transition-all",
                             heading.depth === 2 ? "pl-4" : "pl-8 text-xs",
-                            "text-gray-500 dark:text-gray-400",
-                            
-                            // Active state classes (will be toggled by JavaScript)
-                            "[&.active]:text-blue-600 [&.active]:font-bold [&.active]:border-l-2 [&.active]:border-blue-600 [&.active]:-ml-0.5 [&.active]:bg-blue-50/50",
-                            "dark:[&.active]:text-blue-400 dark:[&.active]:border-blue-400 dark:[&.active]:bg-blue-900/20",
-                    ]}>
+                        ]}>
                         {heading.text}
                     </a>
                 </li>
@@ -32,44 +27,81 @@ const toc = headings.filter((h) => h.depth <= 3);
     </ul>
 </nav>
 
+<style>
+  /* Custom scrollbar styling for the TOC container */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(207, 219, 213, 0.2);
+    border-radius: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent);
+  }
+  /* For Firefox */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(207, 219, 213, 0.2) transparent;
+  }
+</style>
+
 <script>
     function initTOC() {
-        const observerOptions = {
-            root: null,
-            rootMargin: "-100px 0px -66% 0px",
-            threshold: [0, 0.25, 0.5, 0.75, 1.0],
-        };
-
+        const headings = document.querySelectorAll("h1[id], h2[id], h3[id]");
+        const offset = 120;
         let currentActiveId: string | null = null;
+        let rafId = 0;
 
-        const observer = new IntersectionObserver((entries) => {
-            const visibleEntries = entries.filter(
-                (entry) => entry.isIntersecting
+        const updateActiveHeading = () => {
+            rafId = 0;
+
+            const activeHeading = Array.from(headings).reduce<HTMLElement | null>(
+                (candidate, heading) => {
+                    const rect = heading.getBoundingClientRect();
+
+                    if (rect.top <= offset) {
+                        return heading as HTMLElement;
+                    }
+
+                    return candidate;
+                },
+                null
             );
 
-            if (visibleEntries.length > 0) {
-                const targetEntry = visibleEntries.reduce((prev, curr) => {
-                    return prev.boundingClientRect.top <
-                        curr.boundingClientRect.top
-                        ? prev
-                        : curr;
-                });
+            const targetHeading = activeHeading ?? (headings[0] as HTMLElement | undefined);
+            const id = targetHeading?.getAttribute("id") ?? null;
 
-                const id = targetEntry.target.getAttribute("id");
+            if (!id || id === currentActiveId) {
+                return;
+            }
 
-                if (id && id !== currentActiveId) {
-                    currentActiveId = id;
+            currentActiveId = id;
 
-                    document.querySelectorAll(".toc-link").forEach((link) => {
-                        link.classList.remove("active");
-                    });
+            document.querySelectorAll(".toc-link").forEach((link) => {
+                link.classList.remove("active");
+            });
 
-                    const activeLink = document.querySelector(
-                        `.toc-link[href="#${id}"]`
-                    );
+            const activeLink = document.querySelector(`.toc-link[href="#${id}"]`);
 
-                    if (activeLink) {
-                        activeLink.classList.add("active");
+            if (activeLink) {
+                activeLink.classList.add("active");
+
+                const tocContainer = document.querySelector(
+                    "[data-toc-container]"
+                );
+
+                if (tocContainer) {
+                    const containerRect = tocContainer.getBoundingClientRect();
+                    const linkRect = activeLink.getBoundingClientRect();
+
+                    const isAboveVisibleArea = linkRect.top < containerRect.top;
+                    const isBelowVisibleArea = linkRect.bottom > containerRect.bottom;
+
+                    if (isAboveVisibleArea || isBelowVisibleArea) {
                         activeLink.scrollIntoView({
                             block: "nearest",
                             behavior: "smooth",
@@ -77,30 +109,22 @@ const toc = headings.filter((h) => h.depth <= 3);
                     }
                 }
             }
-        }, observerOptions);
+        };
 
-        const headings = document.querySelectorAll("h1[id], h2[id], h3[id]");
-        headings.forEach((header) => {
-            observer.observe(header);
-        });
+        const scheduleUpdate = () => {
+            if (rafId !== 0) {
+                return;
+            }
+
+            rafId = window.requestAnimationFrame(updateActiveHeading);
+        };
 
         const setInitialActive = () => {
-            const firstVisibleHeading = Array.from(headings).find((heading) => {
-                const rect = heading.getBoundingClientRect();
-                return rect.top >= 0 && rect.top <= window.innerHeight;
-            });
-
-            if (firstVisibleHeading) {
-                const id = firstVisibleHeading.getAttribute("id");
-                const firstLink = document.querySelector(
-                    `.toc-link[href="#${id}"]`
-                );
-                if (firstLink) {
-                    firstLink.classList.add("active");
-                    currentActiveId = id;
-                }
-            }
+            updateActiveHeading();
         };
+
+        window.addEventListener("scroll", scheduleUpdate, { passive: true });
+        window.addEventListener("resize", scheduleUpdate);
 
         setInitialActive();
     }

@@ -4,15 +4,12 @@ pubDate: 2025-01-15
 description: 'A comprehensive test page with all Markdown styles to verify theme rendering.'
 author: 'Test Author'
 image:
-    url: 'https://picsum.photos/800/600'
+    url: './pen.jpg'
     alt: 'Markdown test page'
 tags: ["markdown", "test", "styling", "demo"]
 ---
 
-# Heading Level 1 (H1)
-
-This is a regular paragraph of text. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-Testing mixed content with 中文字符 for bilingual support.
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet earum iure, accusantium laborum eum dolore, consectetur quis ratione labore nemo ab ad expedita vel? Dolorem, perspiciatis ut. Quisquam, molestiae voluptas!
 
 ## Heading Level 2 (H2)
 
@@ -163,21 +160,6 @@ ___
 
 \[This is not a link\]
 
-## HTML Tags
-
-<div style="background-color: #f0f0f0; padding: 1rem; border-radius: 4px;">
-  This is an HTML div element. Markdown also supports embedded HTML.
-</div>
-
-<details>
-<summary>Click to expand</summary>
-
-This is collapsible content that can contain any Markdown elements.
-
-- List item
-- Another item
-
-</details>
 
 ## Footnotes
 
@@ -197,16 +179,6 @@ Term 1
 Term 2
 : Definition 2a
 : Definition 2b
-
-## Math Formulas (if supported)
-
-Inline formula: $E = mc^2$
-
-Block formula:
-
-$$
-\int_{a}^{b} f(x) dx = F(b) - F(a)
-$$
 
 ## Emoji
 

@@ -1,10 +1,153 @@
 @import "tailwindcss";
 
+:root {
+  font-size: 93.75%; /* 1rem = 15px, scales down the overall UI text and spacing */
+  --color-bg: #242423;
+  --color-panel: #333533;
+  --color-surface: #444444;
+  --color-accent: #F5CB5C;
+  --color-muted: #CFDBD5;
+}
+
 @layer card {
     .card{
-        @apply px-8 py-5 bg-[#333333] rounded-xl;
+        @apply p-8 rounded-xl;
+        background-color: var(--color-surface);
     }
+
+  .panel{
+    @apply p-8 rounded-xl;
+    background-color: var(--color-panel);
+  }
 }
 body {
-  @apply bg-neutral-800 text-white;
+  @apply text-white;
+  background-color: var(--color-bg);
+}
+
+.tag-filter-btn.is-active {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.toc-link {
+  color: var(--color-muted);
+}
+
+.toc-link:hover {
+  color: var(--color-accent);
+}
+
+.toc-link.active {
+  color: var(--color-accent);
+  border-left: 2px solid var(--color-accent);
+  background-color: rgba(245, 203, 92, 0.12);
+}
+
+.markdown {
+  color: var(--color-muted);
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.markdown :where(h1, h2, h3, h4, h5, h6) {
+  color: #ffffff;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.markdown :where(h1) { font-size: 2rem; }
+.markdown :where(h2) { font-size: 1.75rem; }
+.markdown :where(h3) { font-size: 1.5rem; }
+.markdown :where(h4) { font-size: 1.25rem; }
+.markdown :where(h5) { font-size: 1.1rem; }
+.markdown :where(h6) { font-size: 1rem; }
+
+.markdown :where(p, ul, ol, pre, blockquote, table, hr) {
+  margin: 1rem 0;
+}
+
+.markdown :where(ul, ol) {
+  padding-left: 1.5rem;
+}
+
+.markdown :where(ul) { list-style: disc; }
+.markdown :where(ol) { list-style: decimal; }
+
+.markdown :where(li) {
+  margin: 0.4rem 0;
+}
+
+.markdown :where(a) {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.markdown :where(a:hover) {
+  opacity: 0.9;
+}
+
+.markdown :where(blockquote) {
+  border-left: 3px solid var(--color-accent);
+  background-color: rgba(245, 203, 92, 0.08);
+  padding: 0.75rem 1rem;
+  color: #ffffff;
+}
+
+.markdown :where(code) {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.95em;
+  background-color: var(--color-surface);
+  color: var(--color-accent);
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.35rem;
+}
+
+.markdown :where(pre) {
+  background-color: var(--color-surface);
+  border: 1px solid rgba(207, 219, 213, 0.2);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+}
+
+.markdown :where(pre code) {
+  background: transparent;
+  color: #ffffff;
+  padding: 0;
+}
+
+.markdown :where(hr) {
+  border: 0;
+  border-top: 1px solid rgba(207, 219, 213, 0.3);
+}
+
+.markdown :where(table) {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.markdown :where(th, td) {
+  border: 1px solid rgba(207, 219, 213, 0.2);
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+}
+
+.markdown :where(th) {
+  background-color: rgba(68, 68, 68, 0.8);
+  color: #ffffff;
+}
+
+.markdown :where(img) {
+  max-width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(207, 219, 213, 0.15);
+}
+
+.markdown :where(strong) {
+  color: #ffffff;
 }

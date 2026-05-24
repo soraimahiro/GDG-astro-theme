@@ -5,18 +5,24 @@ import PostHeader from "@components/PostHeader.astro";
 
 export async function getStaticPaths() {
     const posts = await getCollection("posts");
-    // console.log(posts);
-    return posts.map((post: any) => ({
-        params: { posts: post.id },
-        props: { post },
-    }));
+    const sortedPosts = posts.sort((a: any, b: any) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+    return sortedPosts.map((post: any, index: number) => {
+        const nextPost = index < sortedPosts.length - 1 ? sortedPosts[index + 1] : null;
+        const prevPost = index > 0 ? sortedPosts[index - 1] : null;
+        return {
+            params: { posts: post.id },
+            props: { post, nextPost, prevPost },
+        };
+    });
 }
 
-const { post } = Astro.props;
+const { post, nextPost, prevPost } = Astro.props;
 const { Content, headings } = await render(post);
 ---
 
-<PostLayout headings={headings}>
+<PostLayout headings={headings} nextPost={nextPost} prevPost={prevPost}>
     <PostHeader title={post.data.title} pubDate={post.data.pubDate} tags={post.data.tags}/>
-    <Content/>
+    <div class="markdown">
+        <Content/>
+    </div>
 </PostLayout>

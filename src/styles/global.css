@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 :root {
-  font-size: 93.75%; /* 1rem = 15px, scales down the overall UI text and spacing */
   --color-bg: #242423;
   --color-panel: #333533;
   --color-surface: #444444;

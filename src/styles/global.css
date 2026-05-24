@@ -41,9 +41,7 @@ body {
 
 .toc-link.active {
   color: var(--color-accent);
-  font-weight: 700;
   border-left: 2px solid var(--color-accent);
-  margin-left: -0.125rem;
   background-color: rgba(245, 203, 92, 0.12);
 }
 

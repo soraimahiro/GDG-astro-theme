@@ -11,12 +11,12 @@
 
 @layer card {
     .card{
-        @apply px-8 py-5 rounded-xl;
+        @apply p-8 rounded-xl;
         background-color: var(--color-surface);
     }
 
   .panel{
-    @apply px-8 py-5 rounded-xl;
+    @apply p-8 rounded-xl;
     background-color: var(--color-panel);
   }
 }

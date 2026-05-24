@@ -13,8 +13,8 @@ const { pageTitle } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{ pageTitle }</title>
 	</head>
-	<body class="w-full min-h-screen bg-(--color-bg)">
-		<div class="flex flex-col items-center px-4 sm:px-6 lg:px-8">
+	<body class="w-full min-h-screen bg-[var(--color-bg)] flex flex-col">
+		<div class="flex-1 flex flex-col items-center px-4 sm:px-6 lg:px-8">
 			<Navbar/>
 			<main class="w-full max-w-7xl">
 				<slot/>

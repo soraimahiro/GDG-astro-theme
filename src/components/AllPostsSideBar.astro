@@ -12,22 +12,24 @@ interface Props {
 const { tags } = Astro.props;
 ---
 
-<aside class="panel flex flex-col gap-4">
-  <div>
-    <h2 class="text-xl font-bold mb-3">標籤</h2>
+<aside class="panel flex flex-col gap-4 lg:h-[calc(100vh-9.5rem)]">
+  <div class="shrink-0">
+    <h2 class="text-xl font-bold mb-3">Tags</h2>
+  </div>
+  <div class="flex-1 min-h-0 overflow-y-auto custom-scrollbar">
     <div class="flex flex-wrap gap-2" data-tag-list>
       <button
         type="button"
-        class="tag-filter-btn rounded-full border border-[color:rgba(207,219,213,0.6)] px-3 py-1 text-sm text-white bg-white/10 transition"
+        class="tag-filter-btn rounded-full border border-[rgba(207,219,213,0.6)] px-3 py-1 text-sm text-white bg-white/10 transition"
         data-tag="__all"
         aria-pressed="true"
       >
-        全部
+        All
       </button>
       {tags.map((tag) => (
         <button
           type="button"
-          class="tag-filter-btn rounded-full border border-[color:rgba(207,219,213,0.4)] px-3 py-1 text-sm text-white bg-white/10 hover:bg-white/20 transition"
+          class="tag-filter-btn rounded-full border border-[rgba(207,219,213,0.4)] px-3 py-1 text-sm text-white bg-white/10 hover:bg-white/20 transition"
           data-tag={tag.key}
           aria-pressed="false"
         >
@@ -37,3 +39,25 @@ const { tags } = Astro.props;
     </div>
   </div>
 </aside>
+
+<style>
+  /* Custom scrollbar styling for the tag container */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(207, 219, 213, 0.2);
+    border-radius: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent);
+  }
+  /* For Firefox */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(207, 219, 213, 0.2) transparent;
+  }
+</style>

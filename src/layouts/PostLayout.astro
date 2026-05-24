@@ -5,8 +5,9 @@ import SideBarRight from "@components/SideBarRight.astro";
 import ProfileCard from "@components/ProfileCard.astro";
 import Comment from "@components/Comment.astro";
 import NextPrevButton from "@components/NextPrevButton.astro";
+import { authorConfig } from '../config';
 
-const { headings } = Astro.props;
+const { headings, nextPost, prevPost } = Astro.props;
 ---
 
 <Layout>
@@ -16,17 +17,17 @@ const { headings } = Astro.props;
                 <slot />
             </div>
 
-            <ProfileCard avatar="https://picsum.photos/64/64" name="Author">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor, tempora consectetur est sed voluptatem quod laboriosam repellat corrupti cupiditate natus sit officiis beatae, praesentium deleniti? Praesentium, provident! Aut, sed amet.
+            <ProfileCard avatar={authorConfig.avatar} name={authorConfig.name} media={authorConfig.media}>
+                {authorConfig.bio}
             </ProfileCard>
             
             <NextPrevButton 
-                nextTitle="next" nextPicture="https://picsum.photos/800/600" nextUrl="/"
-                prevTitle="previous" prevPicture="https://picsum.photos/800/600" prevUrl="/"
+                nextPost={nextPost}
+                prevPost={prevPost}
             />
         </div>
 
-        <div class="hidden lg:block lg:flex-1 panel sticky top-5 max-h-[calc(100vh-2.5rem)] overflow-y-auto">
+        <div class="lg:flex-1 panel sticky top-5 lg:h-[calc(100vh-9.5rem)] flex flex-col">
             <SideBarRight headings={headings} />
         </div>
     </div>

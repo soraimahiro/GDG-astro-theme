@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import ProfileCard from "@components/ProfileCard.astro";
 import PostCard from "@components/widgets/PostCard.astro";
+import { authorConfig } from '../config';
 
 const allPosts = await getCollection("posts");
 const latestPosts = allPosts
@@ -18,8 +19,8 @@ const latestPosts = allPosts
 
 <Layout pageTitle="Home">
 	<section class="panel">
-		<ProfileCard avatar="/Logo.png" name="Lion">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+		<ProfileCard avatar={authorConfig.avatar} name={authorConfig.name} media={authorConfig.media}>
+			{authorConfig.bio}
 		</ProfileCard>
 
 		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">

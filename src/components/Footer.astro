@@ -1,27 +1,15 @@
 ---
+import { footerConfig } from '../config';
+
 const currentYear = new Date().getFullYear();
-const footerSections = [
-  {
-    title: "Links",
-    links: [
-      { name: "Github", url: "https://github.com/soraimahiro/GDG-astro-theme" }
-    ],
-  },
-  {
-    title: "Reference",
-    links: [
-      { name: "Astro", url: "https://astro.build" },
-      { name: "Tailwind CSS", url: "https://tailwindcss.com" }
-    ],
-  },
-];
+const { copyrightName, sections } = footerConfig;
 ---
 
 <footer class="w-full border-t border-(--color-surface) bg-(--color-bg) mt-5">
   <div class="max-w-7xl w-full p-10 mx-auto">
     <div class="flex flex-wrap justify-center gap-x-16 gap-y-10 mb-10">
       {
-        footerSections.map((section) => (
+        sections.map((section) => (
           <div class="min-w-30">
             <h3 class="text-xs font-semibold text-white uppercase tracking-wider mb-3 text-center md:text-left">
               {section.title}
@@ -47,7 +35,7 @@ const footerSections = [
 
     <div class="border-t border-(--color-surface) pt-5 text-center">
       <p class="text-sm text-(--color-muted)">
-        &copy; {currentYear} GDG NTNU. All rights reserved.
+        &copy; {currentYear} {copyrightName}. All rights reserved.
       </p>
     </div>
   </div>

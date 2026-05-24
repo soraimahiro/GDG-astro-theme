@@ -11,18 +11,14 @@ const { headings } = Astro.props;
 
 <Layout>
     <div class="flex max-w-[1440px] py-5 gap-5 mx-auto justify-center text-white items-start">
-        <div class="hidden lg:block lg:flex-1 panel sticky top-5 max-h-[calc(100vh-2.5rem)] overflow-y-auto">
-            <SideBarLeft/>
-        </div>
-
         <div class="w-full lg:flex-4 panel">
-            <slot />
+            <div class="mb-10">
+                <slot />
+            </div>
 
             <ProfileCard avatar="https://picsum.photos/64/64" name="Author">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor, tempora consectetur est sed voluptatem quod laboriosam repellat corrupti cupiditate natus sit officiis beatae, praesentium deleniti? Praesentium, provident! Aut, sed amet.
             </ProfileCard>
-
-            <Comment/>
             
             <NextPrevButton 
                 nextTitle="next" nextPicture="https://picsum.photos/800/600" nextUrl="/"

@@ -30,10 +30,10 @@ const isImageUrl = typeof image === 'string';
         )
     )}
     
-    <div class="from-[var(--color-surface)] to-transparent bg-linear-to-t absolute inset-0"></div>
+    <div class="from-(--color-surface) to-transparent bg-linear-to-t absolute inset-0"></div>
 
     <div class="absolute bottom-0 p-6">
-        <div class="mb-1 text-sm text-[var(--color-muted)]">{date}</div> 
+        <div class="mb-1 text-sm text-(--color-muted)">{date}</div> 
         <div class="text-lg font-bold text-white">
             {title}
         </div>

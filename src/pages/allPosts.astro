@@ -39,7 +39,7 @@ const tags = Array.from(tagMap.values()).sort((a, b) =>
 
 			<div class="panel flex-1">
 				{posts.length === 0 ? (
-					<div class="text-[var(--color-muted)]">No posts yet.</div>
+					<div class="text-(--color-muted)">No posts yet.</div>
 				) : (
 					<div id="post-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 						{posts.map((post) => (

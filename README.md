@@ -1,43 +1,70 @@
-# Astro Starter Kit: Minimal
+# Astro Lion Theme
 
-```sh
-pnpm create astro@latest -- --template minimal
+This theme is designed by GDGoC NTNU.
+
+## Quick Start
+
+This project requires Node.js (v24+) and the pnpm package manager.
+
+Follow these steps to install and run this project locally:
+
+1. Clone the Repository
+```bash
+git clone https://github.com/soraimahiro/Astro-Theme-Lion.git
+cd Astro-Theme-Lion
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+2. Install Project Dependencies
+Run the installation command in the project root:
+```bash
+pnpm install
+```
 
-## 🚀 Project Structure
+3. Run the Development Server
+```bash
+pnpm dev
+```
+Open your browser and visit `http://localhost:4321` to preview the site.
 
-Inside of your Astro project, you'll see the following folders and files:
+4. Build for Production
+To compile your project into static assets:
+```bash
+pnpm build
+```
+The optimized files will be outputted to the `dist/` directory.
 
+---
+
+## Configuration and Customization
+
+### 1. Profile and Footer Configuration
+Profile cards (on the homepage and post layouts) and the site footer are managed centrally.
+Open and edit `src/config.ts`:
+
+- **authorConfig:** Update your avatar path, name, bio, and social links (represented by Mingcute icon name strings, e.g., `mingcute:github-fill`).
+- **footerConfig:** Configure your copyright name and link sections.
+
+### 2. Creating New Posts
+All posts are stored in `src/content/posts/`. It is recommended to organize posts into folders so you can reference local relative images.
+
+Recommended folder layout:
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+src/content/posts/
+  └── my-new-post/
+        ├── index.md         (Markdown content)
+        └── cover.jpg        (Cover image)
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+In your markdown frontmatter, reference your local cover image using a relative path:
+```markdown
+---
+title: "My New Post"
+pubDate: 2026-05-24
+description: "A tutorial on how to write markdown posts."
+author: "Lion"
+image:
+  url: "./cover.jpg"
+  alt: "Post Cover"
+tags: ["Astro", "Tutorial"]
+---
+```

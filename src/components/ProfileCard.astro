@@ -16,7 +16,7 @@ const { name, avatar, media } = Astro.props;
     <!-- Left Area -->
     <div class="w-fit min-w-1/5 flex-col items-center place-items-center p-5">
         <!-- Outline Circle -->
-        <div class="size-18 overflow-hidden p-1 rounded-full border-2 border-white">
+        <div class="size-15 overflow-hidden p-1 rounded-full border-2 border-white">
             <!-- Avatar -->
             <Image src={ avatar } alt="An image of this person" width={64} height={64} class="size-full overflow-hidden bg-center bg-cover rounded-full"></Image>
         </div>
@@ -30,13 +30,13 @@ const { name, avatar, media } = Astro.props;
                     </a>
                 ))
             }
-            {!media && <div class="text-[24px] font-bold">{name}</div>}
+            {!media && <div class="text-lg font-bold">{name}</div>}
         </div>
             
     </div>
 
     <!-- Center Line -->
-    <div class="mr-3 ml-3 w-0.5 bg-[var(--color-muted)]"></div>
+    <div class="mr-3 ml-3 w-1 bg-(--color-muted)"></div>
 
     <!-- Right Area -->
     <div class="flex flex-col justify-center">
@@ -44,7 +44,7 @@ const { name, avatar, media } = Astro.props;
         {media && <div class="text-lg font-bold">{name}</div>}
         <!-- Description -->
         <div class="text-base p-2 flex items-center">
-            <div class="max-h-full w-full">
+            <div class="max-h-full w-full text-(--color-muted)">
                 <slot />
             </div>
         </div>

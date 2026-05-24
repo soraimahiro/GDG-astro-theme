@@ -12,7 +12,7 @@ const {
 const { title, image, url, date } = post;
 const isImageUrl = typeof image === 'string';
 ---
-<a href={url} class={`group relative block h-53 overflow-hidden rounded-[30px]`}>
+<a href={url} class={`group relative block min-h-50 overflow-hidden rounded-xl`}>
     {image && (
         isImageUrl ? (
             <img
@@ -34,7 +34,7 @@ const isImageUrl = typeof image === 'string';
 
     <div class="absolute bottom-0 p-6">
         <div class="mb-1 text-sm text-[var(--color-muted)]">{date}</div> 
-        <div class="text-xl font-bold text-white">
+        <div class="text-lg font-bold text-white">
             {title}
         </div>
     </div>
